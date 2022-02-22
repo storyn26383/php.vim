@@ -549,7 +549,7 @@ if php_folding != 1
 endif
 
 " Class Keywords
-syn keyword phpType class abstract extends interface implements static final var public private protected const trait contained
+syn keyword phpType class abstract extends interface implements static final var public private protected const trait enum contained
 
 " Magic Methods
 syn keyword phpStatement __construct __destruct __call __callStatic __get __set __isset __unset __sleep __wakeup __toString __invoke __set_state __clone contained
@@ -836,7 +836,7 @@ endif
 syn match phpStaticClasses "\v\h\w+(::)@=" contained display
 
 " Class name
-syn keyword phpKeyword class trait contained
+syn keyword phpKeyword class trait enum contained
       \ nextgroup=phpClass skipwhite skipempty
 syn match phpClass /\h\w*/ contained
 
@@ -901,7 +901,7 @@ if php_folding==1
   syn keyword phpFCKeyword  function  contained
   syn match phpDefine "\(\s\|^\)\(abstract\s\+\|final\s\+\|private\s\+\|protected\s\+\|public\s\+\|static\s\+\)*function\(\s\+.*[;}]\)\@="  contained contains=phpSCKeyword
   syn match phpStructure "\(\s\|^\)\(abstract\s\+\|final\s\+\)*\(class\|trait\)\(\s\+.*}\)\@="  contained
-  syn match phpStructure "\(\s\|^\)interface\(\s\+.*}\)\@="  contained
+  syn match phpStructure "\(\s\|^\)\(interface\|enum\)\(\s\+.*}\)\@="  contained
   syn match phpException "\(\s\|^\)try\(\s\+.*}\)\@="  contained
   syn match phpException "\(\s\|^\)catch\(\s\+.*}\)\@="  contained
   syn match phpKeyword "^\s*\(if\|else\%[if]\)\s*\(.*{.*}$\|[^{}]*$\)\@=" contained
@@ -916,7 +916,7 @@ if php_folding==1
   syn region phpFoldFunction matchgroup=Storageclass start="^\z(\s*\)\(abstract\s\+\|final\s\+\|private\s\+\|protected\s\+\|public\s\+\|static\s\+\)*function\s\([^};]*$\)\@="rs=e-9 matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,@phpClControl,phpFoldHtmlInside,phpFCKeyword contained transparent fold extend
   syn region phpFoldFunction matchgroup=Define start="^function\s\([^};]*$\)\@=" matchgroup=Delimiter end="^}" contains=@phpClFunction,@phpClControl,phpFoldHtmlInside contained transparent fold extend
   syn region phpFoldClass matchgroup=Structure start="^\z(\s*\)\(abstract\s\+\|final\s\+\)*\(class\|trait\)\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction,phpSCKeyword contained transparent fold extend
-  syn region phpFoldInterface matchgroup=Structure start="^\z(\s*\)interface\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
+  syn region phpFoldInterface matchgroup=Structure start="^\z(\s*\)\(interface\|enum\)\s\+\([^}]*$\)\@=" matchgroup=Delimiter end="^\z1}" contains=@phpClFunction,phpFoldFunction contained transparent fold extend
 
   syn region phpFoldTryContainer start="^\z(\s*\)try\s\+\(.*{$\)\@=" skip="^\z1}\_s*\(catch\|finally\)" end="^\z1}$" keepend extend contained contains=@phpClFunction,@phpClControl,phpFoldFunction,phpFoldHtmlInside transparent
   syn region phpFoldTry matchgroup=phpException start="^\z(\s*\)try\s\+\(.*{$\)\@=" matchgroup=Delimiter end="^\z1}$" end="^\z1}\(\s\+\(catch\|finally\)\)\@="me=s-1 containedin=phpFoldTryContainer contained transparent keepend fold extend nextgroup=phpFoldCatch
